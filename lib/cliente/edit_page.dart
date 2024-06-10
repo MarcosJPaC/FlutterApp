@@ -49,7 +49,7 @@ class _EditPageState extends State<EditPage> {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.grey[900], // Cambia el color de fondo a gris oscuro
+      backgroundColor: Colors.white, // Cambia el color de fondo a gris oscuro
 
       bottomNavigationBar: MaterialButton(
         color: Colors.teal,

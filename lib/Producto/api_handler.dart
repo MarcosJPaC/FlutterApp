@@ -24,7 +24,7 @@ class ApiHandler {
         // Filtrar los registros con status igual a 0
         data = jsonData
             .map((json) => Producto.fromJson(json))
-            .where((empleado) => empleado.status == 1)
+            .where((producto) => producto.status == 1)
             .toList();
       }
     } catch (e) {
@@ -35,13 +35,12 @@ class ApiHandler {
     return data;
   }
 
-  Future<http.Response> updateUser(
-      {required int userId, required Producto user}) async {
+  Future<http.Response> updateUser({
+    required int userId,
+    required Producto user
+  }) async {
     final uri = Uri.parse(
-        "https://10.0.2.2:7267/api/Producto/ActualizarProducto/Update/$userId?nombre=${Uri
-            .encodeComponent(user.nombre)}&descripcion=${Uri.encodeComponent(
-            user.descripcion)}&precio=${Uri.encodeComponent(
-            user.precio as String)}&status=${user.status == 1 ? 1 : 0}");
+        "https://10.0.2.2:7267/api/Producto/ActualizarProducto/Update/$userId");
 
     late http.Response response;
 
@@ -49,40 +48,39 @@ class ApiHandler {
       response = await http.put(
         uri,
         headers: <String, String>{
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-Type': 'application/json; charset=UTF-8',
         },
+        body: jsonEncode(user.toJson()), // Convertir el objeto Producto a JSON
       );
     } catch (e) {
-      return response;
+      // Puedes manejar el error aquí si es necesario
     }
 
     return response;
   }
 
 
+
   Future<http.Response> addUser({required Producto user}) async {
-    final uri = Uri.parse(
-        "https://10.0.2.2:7267/api/Producto/CrearProduto/Create?"
-            "nombre=${Uri.encodeComponent(user.nombre)}&"
-            "descripcion=${Uri.encodeComponent(user.descripcion)}&"
-            "precio=${Uri.encodeComponent(user.precio.toString())}&"
-            "status=${user.status == 1 ? 'true' : 'false'}"
-    );
+    final uri = Uri.parse("https://10.0.2.2:7267/api/Producto/CrearProduto/Create");
+
     late http.Response response;
 
     try {
       response = await http.post(
         uri,
         headers: <String, String>{
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-Type': 'application/json; charset=UTF-8',
         },
+        body: jsonEncode(user.toJson()), // Convertir el objeto Producto a JSON
       );
     } catch (e) {
-      return response;
+      // Puedes manejar el error aquí si es necesario
     }
 
     return response;
   }
+
 
 
   Future<http.Response> deleteUser({required int userId}) async {

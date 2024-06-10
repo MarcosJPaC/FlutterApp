@@ -26,7 +26,7 @@ class _EditPageState extends State<EditPage> {
         idProducto: widget.user.idProducto,
         nombre: data['nombre'],
         descripcion: data['descripcion'],
-        precio: data['precio'],
+        precio: double.parse(data['precio']),
         status: data['status'] == true ? 1 : 0, // Convertir a 1 si está seleccionado, de lo contrario a 0
       );
 
@@ -44,12 +44,12 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Editar Empleado"),
+        title: const Text("Editar Producto"),
         centerTitle: true,
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.grey[900], // Cambia el color de fondo a gris oscuro
+      backgroundColor: Colors.white, // Cambia el color de fondo a blanco
 
       bottomNavigationBar: MaterialButton(
         color: Colors.teal,
@@ -65,7 +65,7 @@ class _EditPageState extends State<EditPage> {
           initialValue: {
             'nombre': widget.user.nombre,
             'descripcion': widget.user.descripcion,
-            'precio': widget.user.precio,
+            'precio': widget.user.precio.toString(),
             'status': widget.user.status == 1, // Convertir a booleano
           },
           child: Column(
@@ -88,7 +88,7 @@ class _EditPageState extends State<EditPage> {
               const SizedBox(height: 10),
               FormBuilderTextField(
                 name: 'precio',
-                decoration: const InputDecoration(labelText: 'Salario'),
+                decoration: const InputDecoration(labelText: 'Precio'),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.numeric(), // Validador numérico
                   FormBuilderValidators.maxLength(10), // Máximo 10 caracteres

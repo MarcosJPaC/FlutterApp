@@ -6,7 +6,7 @@ class Product {
   final int idProducto;
   final String nombre;
   final String descripcion;
-  final int precio;
+  final double precio; // Cambiado de int a double
   int quantity;
 
   Product({
@@ -16,6 +16,15 @@ class Product {
     required this.precio,
     this.quantity = 1,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      idProducto: json['idProducto'],
+      nombre: json['nombre'],
+      descripcion: json['descripcion'],
+      precio: json['precio'].toDouble(), // Asegurarse de que precio sea un double
+    );
+  }
 }
 
 class ShoppingCartPage extends StatefulWidget {
@@ -46,12 +55,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       // Si la solicitud es exitosa, parsea la lista de productos
       List<dynamic> data = json.decode(response.body);
       List<Product> fetchedProducts = data.map((item) {
-        return Product(
-          idProducto: item['idProducto'],
-          nombre: item['nombre'],
-          descripcion: item['descripcion'],
-          precio: item['precio'],
-        );
+        return Product.fromJson(item);
       }).toList();
       return fetchedProducts;
     } else {

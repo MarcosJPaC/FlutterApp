@@ -23,7 +23,7 @@ class _AddUserState extends State<AddUser> {
         idProducto: 0, // No es necesario establecer manualmente el idCliente
         nombre: data['nombre'] as String,
         descripcion: data['descripcion'] as String, // Agregamos la dirección
-        precio: int.parse(data['precio'] as String), // Convertimos el precio a entero
+        precio: double.parse(data['precio'] as String), // Convertimos el precio a entero
         status: 1, // Establecemos el status predeterminado como 1
       );
 

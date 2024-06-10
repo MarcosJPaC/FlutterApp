@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 class Producto {
   final int idProducto;
   final String nombre;
   final String descripcion;
-  final int precio;
+  final double precio;
   final int status;
 
   const Producto({
@@ -25,10 +27,10 @@ class Producto {
       idProducto: json['idProducto'],
       nombre: json['nombre'],
       descripcion: json['descripcion'],
-      precio: json['precio'],
+      precio: json['precio'].toDouble(), // Convertir a double
       status: json['status']
-
   );
+
   Map<String,dynamic> toJson() => {
     "idProducto":idProducto,
     "nombre":nombre,
