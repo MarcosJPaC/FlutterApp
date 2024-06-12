@@ -26,8 +26,8 @@ class _EditPageState extends State<EditPage> {
         idEmpleado: widget.user.idEmpleado,
         nombre: data['nombre'],
         puesto: data['direccion'],
-        salario: data['telefono'],
-        status: data['status'] == true ? 1 : 0, // Convertir a 1 si está seleccionado, de lo contrario a 0
+        salario: int.parse(data['telefono']),
+        status: widget.user.status, // Conserva el valor actual del estado
       );
 
       response = await apiHandler.updateUser(
@@ -49,7 +49,7 @@ class _EditPageState extends State<EditPage> {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.grey[900], // Cambia el color de fondo a gris oscuro
+      backgroundColor: Colors.white, // Cambia el color de fondo a gris oscuro
 
       bottomNavigationBar: MaterialButton(
         color: Colors.teal,
@@ -64,9 +64,8 @@ class _EditPageState extends State<EditPage> {
           key: _formKey,
           initialValue: {
             'nombre': widget.user.nombre,
-            'puesto': widget.user.puesto,
-            'salario': widget.user.salario,
-            'status': widget.user.status == 1, // Convertir a booleano
+            'direccion': widget.user.puesto, // Cambiado a 'direccion' según el modelo
+            'telefono': widget.user.salario.toString(), // Cambiado a 'telefono' según el modelo
           },
           child: Column(
             children: [
@@ -79,26 +78,20 @@ class _EditPageState extends State<EditPage> {
               ),
               const SizedBox(height: 10),
               FormBuilderTextField(
-                name: 'direccion',
-                decoration: const InputDecoration(labelText: 'Puesto'),
+                name: 'direccion', // Cambiado a 'direccion' según el modelo
+                decoration: const InputDecoration(labelText: 'Puesto'), // Cambiado a 'Puesto' para reflejar la etiqueta correcta
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
               ),
               const SizedBox(height: 10),
               FormBuilderTextField(
-                name: 'telefono',
-                decoration: const InputDecoration(labelText: 'Salario'),
+                name: 'telefono', // Cambiado a 'telefono' según el modelo
+                decoration: const InputDecoration(labelText: 'Salario'), // Cambiado a 'Salario' para reflejar la etiqueta correcta
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.numeric(), // Validador numérico
                   FormBuilderValidators.maxLength(10), // Máximo 10 caracteres
                 ]),
-              ),
-              const SizedBox(height: 10),
-              FormBuilderCheckbox(
-                name: 'status',
-                title: const Text('Activo'),
-                initialValue: widget.user.status == 1, // Convertir a booleano
               ),
             ],
           ),

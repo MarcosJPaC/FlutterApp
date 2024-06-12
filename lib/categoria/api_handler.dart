@@ -35,13 +35,9 @@ class ApiHandler {
     return data;
   }
 
-  Future<http.Response> updateUser(
-      {required int userId, required Categoria user}) async {
+  Future<http.Response> updateUser({required int userId, required Categoria user}) async {
     final uri = Uri.parse(
-        "https://10.0.2.2:7267/api/Categoria/ActualizarCategoria/UpdateCategoria/$userId?nombre=${Uri
-            .encodeComponent(user.nombre)}&descripcion=${Uri.encodeComponent(
-            user.descripcion)}&estado=${Uri.encodeComponent(
-            user.estado)}&status=${user.status == 1 ? 1 : 0}");
+        "https://10.0.2.2:7267/api/Categoria/ActualizarCategoria/UpdateCategoria/$userId?nombre=${Uri.encodeComponent(user.nombre)}&descripcion=${Uri.encodeComponent(user.descripcion)}&estado=${Uri.encodeComponent(user.estado)}");
 
     late http.Response response;
 
@@ -58,6 +54,7 @@ class ApiHandler {
 
     return response;
   }
+
 
 
   Future<http.Response> addUser({required Categoria user}) async {

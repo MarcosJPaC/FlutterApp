@@ -43,6 +43,33 @@ class _MainPageVentaState extends State<MainPageVenta> {
     }
   }
 
+  void confirmDeleteUser(int userId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Delete'),
+          content: const Text('Are you sure you want to delete this sale?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                deleteUser(userId);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +123,7 @@ class _MainPageVentaState extends State<MainPageVenta> {
         ],
       ),
       body: data.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,
@@ -126,7 +153,7 @@ class _MainPageVentaState extends State<MainPageVenta> {
               icon: const Icon(Icons.delete_outline),
               color: Colors.red,
               onPressed: () {
-                deleteUser(data[index].idVenta);
+                confirmDeleteUser(data[index].idVenta);
               },
             ),
           );

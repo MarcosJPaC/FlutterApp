@@ -27,7 +27,7 @@ class _EditPageState extends State<EditPage> {
         nombre: data['nombre'],
         descripcion: data['descripcion'],
         precio: double.parse(data['precio']),
-        status: data['status'] == true ? 1 : 0, // Convertir a 1 si está seleccionado, de lo contrario a 0
+        status: widget.user.status, // Mantener el estado original del producto
       );
 
       response = await apiHandler.updateUser(
@@ -66,7 +66,6 @@ class _EditPageState extends State<EditPage> {
             'nombre': widget.user.nombre,
             'descripcion': widget.user.descripcion,
             'precio': widget.user.precio.toString(),
-            'status': widget.user.status == 1, // Convertir a booleano
           },
           child: Column(
             children: [
@@ -93,12 +92,6 @@ class _EditPageState extends State<EditPage> {
                   FormBuilderValidators.numeric(), // Validador numérico
                   FormBuilderValidators.maxLength(10), // Máximo 10 caracteres
                 ]),
-              ),
-              const SizedBox(height: 10),
-              FormBuilderCheckbox(
-                name: 'status',
-                title: const Text('Activo'),
-                initialValue: widget.user.status == 1, // Convertir a booleano
               ),
             ],
           ),

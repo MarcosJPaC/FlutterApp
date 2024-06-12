@@ -41,7 +41,7 @@ class ApiHandler {
         "https://10.0.2.2:7267/api/Empleado/ActualizarEmpleado/Update/$userId?nombre=${Uri
             .encodeComponent(user.nombre)}&puesto=${Uri.encodeComponent(
             user.puesto)}&salario=${Uri.encodeComponent(
-            user.salario as String)}&status=${user.status == 1 ? 1 : 0}");
+            user.salario.toString())}");
 
     late http.Response response;
 
@@ -58,6 +58,8 @@ class ApiHandler {
 
     return response;
   }
+
+
 
 
   Future<http.Response> addUser({required Empleado user}) async {

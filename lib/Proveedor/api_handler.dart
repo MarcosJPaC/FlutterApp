@@ -36,13 +36,10 @@ class ApiHandler {
     return data;
   }
 
-  Future<http.Response> updateUser(
-      {required int userId, required Proveedor user}) async {
+  Future<http.Response> updateUser({required int userId, required Proveedor user}) async {
     final uri = Uri.parse(
-        "https://10.0.2.2:7267/api/Proveedor/ActualizarProveedor/Update/$userId?nombre=${Uri
-            .encodeComponent(user.nombre)}&direccion=${Uri.encodeComponent(
-            user.direccion)}&telefono=${Uri.encodeComponent(user.direccion)}");
-    //https://localhost:7267/api/Proveedor/ActualizarProveedor/Update/1?nombre=23&direccion=23&telefono=31
+        "https://10.0.2.2:7267/api/Proveedor/ActualizarProveedor/Update/$userId?nombre=${Uri.encodeComponent(user.nombre)}&direccion=${Uri.encodeComponent(user.direccion)}&telefono=${Uri.encodeComponent(user.telefono)}");
+
     late http.Response response;
 
     try {
@@ -58,6 +55,7 @@ class ApiHandler {
 
     return response;
   }
+
 
 
   Future<http.Response> addUser({required Proveedor user}) async {

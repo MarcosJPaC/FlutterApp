@@ -37,7 +37,7 @@ class ApiHandler {
 
   Future<http.Response> updateUser({required int userId, required Venta user}) async {
     final uri = Uri.parse("https://10.0.2.2:7267/api/Venta/ActualizarVenta/Update/$userId?fecha=${Uri.encodeComponent(user.fecha)}&total=${Uri.encodeComponent(user.total.toString())}&status=${user.status == 1 ? 1 : 0}");
-///api/Venta/ActualizarVenta/Update/1?fecha=21&total=23
+
     late http.Response response;
 
     try {
@@ -53,6 +53,7 @@ class ApiHandler {
 
     return response;
   }
+
 
 
 

@@ -26,6 +26,33 @@ class _MainPageClienteState extends State<MainPageCliente> {
     getData();
   }
 
+  void confirmDeleteUser(int userId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Delete'),
+          content: const Text('Are you sure you want to delete this client?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                deleteUser(userId);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     getData();
@@ -116,7 +143,7 @@ class _MainPageClienteState extends State<MainPageCliente> {
                   trailing: IconButton(
                     icon: const Icon(Icons.delete_outline),
                     onPressed: () {
-                      deleteUser(data[index].idCliente);
+                      confirmDeleteUser(data[index].idCliente);
                     },
                   ),
                 );

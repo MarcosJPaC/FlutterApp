@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_web_api/categoria//add_user.dart';
+import 'package:flutter_web_api/categoria/add_user.dart';
 import 'package:flutter_web_api/categoria/api_handler.dart';
 import 'package:flutter_web_api/categoria/edit_page.dart';
 import 'package:flutter_web_api/categoria/find_user.dart';
 import 'package:flutter_web_api/categoria/model.dart';
-
 
 class MainPageCategoria extends StatefulWidget {
   const MainPageCategoria({Key? key}) : super(key: key);
@@ -27,6 +26,33 @@ class _MainPageState extends State<MainPageCategoria> {
   void deleteUser(int userId) async {
     await apiHandler.deleteUser(userId: userId);
     getData();
+  }
+
+  void confirmDeleteUser(int userId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Delete'),
+          content: const Text('Are you sure you want to delete this category?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                deleteUser(userId);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -80,8 +106,7 @@ class _MainPageState extends State<MainPageCategoria> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AddUserCategoria(),
-                ),
+                    builder: (context) => const AddUserCategoria()),
               );
             },
             child: const Icon(Icons.add),
@@ -119,7 +144,7 @@ class _MainPageState extends State<MainPageCategoria> {
                   trailing: IconButton(
                     icon: const Icon(Icons.delete_outline),
                     onPressed: () {
-                      deleteUser(data[index].idCategoria);
+                      confirmDeleteUser(data[index].idCategoria);
                     },
                   ),
                 );

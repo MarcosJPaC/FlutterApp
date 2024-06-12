@@ -25,9 +25,9 @@ class _EditPageState extends State<EditPage> {
       final user = Proveedor(
         idProveedor: widget.user.idProveedor,
         nombre: data['nombre'],
-        direccion: (data['direccion']),  // Convertir a cadena
-        telefono: (data['telefono']),  // Convertir a cadena
-        status: data['status'] == true ? 1 : 0,  // Convertir a 1 si está seleccionado, de lo contrario a 0
+        direccion: data['direccion'],
+        telefono: data['telefono'],
+        status: widget.user.status, // Mantenemos el estado actual del proveedor
       );
 
       response = await apiHandler.updateUser(
@@ -49,7 +49,7 @@ class _EditPageState extends State<EditPage> {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.grey[900],  // Cambia el color de fondo a gris oscuro
+      backgroundColor: Colors.white,
 
       bottomNavigationBar: MaterialButton(
         color: Colors.teal,
@@ -64,10 +64,8 @@ class _EditPageState extends State<EditPage> {
           key: _formKey,
           initialValue: {
             'nombre': widget.user.nombre,
-            'direccion': widget.user.direccion.toString(),  // Asegúrate de que sea una cadena
+            'direccion': widget.user.direccion,
             'telefono': widget.user.telefono,
-            'status': widget.user.status == 1,  // Convertir a booleano
-
           },
           child: Column(
             children: [
@@ -93,12 +91,6 @@ class _EditPageState extends State<EditPage> {
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
-              ),
-              const SizedBox(height: 10),
-              FormBuilderCheckbox(
-                name: 'status',
-                title: const Text('Activo'),
-                initialValue: widget.user.status == 1,  // Convertir a booleano
               ),
             ],
           ),

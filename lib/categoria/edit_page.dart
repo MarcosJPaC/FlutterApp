@@ -27,7 +27,7 @@ class _EditPageState extends State<EditPage> {
         nombre: data['nombre'],
         descripcion: data['descripcion'],
         estado: data['estado'],
-        status: data['status'] == true ? 1 : 0, // Convertir a 1 si está seleccionado, de lo contrario a 0
+        status: widget.user.status, // Mantener el valor original del estado
       );
 
       response = await apiHandler.updateUser(
@@ -66,7 +66,6 @@ class _EditPageState extends State<EditPage> {
             'nombre': widget.user.nombre,
             'descripcion': widget.user.descripcion,
             'estado': widget.user.estado,
-            'status': widget.user.status == 1, // Convertir a booleano
           },
           child: Column(
             children: [
@@ -105,13 +104,6 @@ class _EditPageState extends State<EditPage> {
                   FormBuilderValidators.required(),
                 ]),
               ),
-              const SizedBox(height: 10),
-              FormBuilderCheckbox(
-                name: 'status',
-                title: const Text('Activo', style: TextStyle(color: Colors.white)), // Cambia el color del texto
-                initialValue: widget.user.status == 1, // Convertir a booleano
-              ),
-
             ],
           ),
         ),

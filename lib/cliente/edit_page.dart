@@ -27,7 +27,7 @@ class _EditPageState extends State<EditPage> {
         nombre: data['nombre'],
         direccion: data['direccion'],
         telefono: data['telefono'],
-        status: data['status'] == true ? 1 : 0, // Convertir a 1 si está seleccionado, de lo contrario a 0
+        status: widget.user.status, // Mantener el estado actual
       );
 
       response = await apiHandler.updateUser(
@@ -49,8 +49,7 @@ class _EditPageState extends State<EditPage> {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white, // Cambia el color de fondo a gris oscuro
-
+      backgroundColor: Colors.white,
       bottomNavigationBar: MaterialButton(
         color: Colors.teal,
         textColor: Colors.white,
@@ -66,7 +65,6 @@ class _EditPageState extends State<EditPage> {
             'nombre': widget.user.nombre,
             'direccion': widget.user.direccion,
             'telefono': widget.user.telefono,
-            'status': widget.user.status == 1, // Convertir a booleano
           },
           child: Column(
             children: [
@@ -90,15 +88,9 @@ class _EditPageState extends State<EditPage> {
                 name: 'telefono',
                 decoration: const InputDecoration(labelText: 'Telefono'),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.numeric(), // Validador numérico
-                  FormBuilderValidators.maxLength(10), // Máximo 10 caracteres
+                  FormBuilderValidators.numeric(),
+                  FormBuilderValidators.maxLength(10),
                 ]),
-              ),
-              const SizedBox(height: 10),
-              FormBuilderCheckbox(
-                name: 'status',
-                title: const Text('Activo'),
-                initialValue: widget.user.status == 1, // Convertir a booleano
               ),
             ],
           ),
